@@ -15,9 +15,12 @@
   },
   "dependencies": {
     "@next/swc-win32-x64-msvc": "^15.4.4",
+    "@tailwindcss/typography": "^0.5.16",
     "next": "15.4.3",
+    "next-auth": "^5.0.0-beta.29",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
