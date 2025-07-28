@@ -10,7 +10,7 @@ const signInFunction = async () => {
 
 const signOutFunction = async () => {
   "use server";
-  await signOut();
+  await signOut({ redirectTo: '/'} );
 }
 
 const Navbar = async () => {
@@ -31,11 +31,9 @@ const Navbar = async () => {
                       <span>Create</span>
                     </Link>
 
-                    <span>Signed in as {session?.user?.email}</span>
-
                     <form action={signOutFunction}>
-                      <button>
-                        Log Out
+                      <button type="submit">
+                        LogOut
                       </button>
                     </form>
 
