@@ -1,10 +1,10 @@
 "use client"
+import { X } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-interface Props {
+interface HamburgerProps {
   isOpen: boolean;          // Your useState boolean
-  onClick: () => void;      // Toggle function
   size?: number;            // Size in pixels (default: 24)
   strokeWidth?: number;     // Line thickness (default: 2)
   color?: string;           // Line color (default: 'currentColor')
@@ -12,19 +12,17 @@ interface Props {
   animationDuration?: string; // Animation speed (default: '0.3s')
 }
 
-const AnimatedHamburgerMenu = ({
+export const AnimatedHamburgerMenu = ({
   isOpen,
-  onClick,
   size = 24,
   color = 'currentColor',
   className = '',
   animationDuration = '0.3s'
-}: Props ) => {
+}: HamburgerProps ) => {
   return (
     <div 
         className={`relative cursor-pointer ${className}`} 
         style={{ width: size, height: size }}
-        onClick={onClick}
         aria-label="Toggle menu">
       {/* Top line */}
       <span
@@ -69,8 +67,7 @@ const AnimatedHamburgerMenu = ({
 };
 
 const SearchForReset = () => {
-
-const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleReset = () => {
     const form = document.querySelector('.search-form') as HTMLFormElement;
@@ -81,18 +78,54 @@ const [isMenuOpen, setIsMenuOpen] = useState(true);
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const history = [];
+
   return (
-    <button
-        className='size-[50px] rounded-full bg-black text-white flex justify-center items-center !important'
+    <>
+      <button
+        className='size-[50px] rounded-full bg-black text-white md:flex hidden justify-center items-center !important'
         aria-label="Reset search form"
         onClick={handleReset} type="reset">
-            <AnimatedHamburgerMenu
-                isOpen={isMenuOpen}
-                onClick={toggleMenu}
-                size={28}
-                color='#ffffff'
-            />
-    </button>
+            <Link href="/">
+              <X className="size-5"/>
+            </Link>
+      </button>
+      <button
+          className='size-[50px] rounded-full bg-black text-white flex justify-center items-center !important'
+          aria-label="Reset search form"
+          onClick={toggleMenu} type="button">
+              <AnimatedHamburgerMenu
+                  isOpen={isMenuOpen}
+                  size={28}
+                  color='#ffffff'
+              />
+      </button>
+
+      {
+        isMenuOpen && (
+          <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
+            <div className="absolute p-8 rounded-lg max-w-sm w-full mx-4 bg-white">
+              <div className="gap-4 flex justify-around ">
+                <h3 className="text-xl font-bold">Mobile Search History</h3>
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="absolute top-7.5 right-8 size-[35px] bg-black text-white rounded-full flex items-center justify-center hover:bg-black/30 transition-all duration-800">
+                  <AnimatedHamburgerMenu
+                    isOpen={true}
+                    size={19}
+                    color='#ffffff'
+                  />
+                </button>
+              </div>
+              <p className="mb-6">This is the search menu to recall prior searches</p>
+              {/* {
+                <ul>
+
+                </ul>
+              } */}
+            </div>
+          </div>
+        )
+      }
+    </>
   )
 }
 
