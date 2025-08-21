@@ -3,20 +3,33 @@ import { EyeIcon } from "lucide-react";
 import Link from 'next/link';
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { Author, Startup } from "@/sanity/types";
 
-interface Props {
-    _createdAt: Date;
-    views: number;
-    author: { _id: number, name: string };
-    _id: number;
-    description: string;
-    image: string;
-    category: string;
-    title: string;
+// interface Props {
+//     _createdAt: Date;
+//     views: number;
+//     author: { _id: number, name: string };
+//     _id: number;
+//     description: string;
+//     image?: string;
+//     category: string;
+//     title: string;
+//     imageUrl: string;
+// }
+
+export type StartUpCardType = Omit<Startup, "author"> & {
+    author?: Author;
+    imageUrl?: string;
+    slug?: string;
 }
 
-const StartUpCard = ({ post }: { post: Props } ) => {
-    const { _createdAt, views, author: { _id: authorId, name }, _id,  description, image, category, title } = post;
+const StartUpCard = ({ post }: { post: StartUpCardType } ) => {
+    const { _createdAt, views, _id,  description, imageUrl, category, title } = post;
+    const { author: { _id: authorId, name } } = post as Startup & { author: Author };
+
+    // or we could do 
+    // const { _createdAt, views, _id,  description, author, imageUrl, category, title } = post;
+    // then use author?._id and author?.name in the component
 
     return (
         <li
@@ -51,16 +64,22 @@ const StartUpCard = ({ post }: { post: Props } ) => {
                 </Link>
             </div>
             <Link href={`/startup/${_id}`}>
-                <p className="font-normal text-[16px] line-clamp-1 my-3 text-black-10 break-all">
+                <p className="font-normal text-[16px] line-clamp-1 my-3 text-black-100 break-all">
                     {description}
                 </p>
-                <Image src={image} alt="placeholder" width={350} height={164} className="w-full h-[164px] rounded-[10px] object-cover"/>
+                <Image
+                    src={imageUrl as string}
+                    alt="Start Up image"
+                    width={350}
+                    height={164}
+                    className="w-full h-[164px] rounded-[10px] object-cover group-hover:scale-105 transition duration-300 ease-in-out"
+                />
             </Link>
 
 
             <footer>
                 <div className="flex justify-between items-center gap-3 mt-5">
-                    <Link href={`/?query=${category.toLowerCase()}`}>
+                    <Link href={`/?query=${category?.toLowerCase()}`}>
                         <p className="text-[16px] font-medium text-black">
                             {category}
                         </p>

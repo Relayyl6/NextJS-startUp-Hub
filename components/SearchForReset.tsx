@@ -83,7 +83,7 @@ const SearchForReset = () => {
   return (
     <>
       <button
-        className='size-[50px] rounded-full bg-black text-white md:flex hidden justify-center items-center !important'
+        className='size-[50px] rounded-full bg-black text-white flex justify-center items-center !important'
         aria-label="Reset search form"
         onClick={handleReset} type="reset">
             <Link href="/">

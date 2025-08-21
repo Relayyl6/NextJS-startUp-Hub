@@ -15,30 +15,50 @@ const signOutFunction = async () => {
 
 const Navbar = async () => {
     const session = await auth();
+    // console.log(session);
 
   return (
-    <header className='px-5 py-3 bg-white shadow-sm font-work-sans'>
+    <header className='fixed top-0 w-full backdrop-blur-2xl rounded-bl-2xl rounded-br-2xl px-10 py-3 bg-white shadow-sm font-work-sans'>
         <nav className='flex justify-between items-center'>
             <Link href="/">
-                <Image src="/logo.png" alt="logo" width={144} height={30} />
+              <Image
+                src="/logo.png"
+                alt="logo"
+                width={144}
+                height={30}
+                className='object-cover'/>
             </Link>
+
+            {
+              session && (
+                <Link href="/startup/create" className='mx-auto'>
+                  <span className='uppercase text-xl'>Create</span>
+                </Link>
+              )
+            }
 
             <div className="flex items-center gap-5 text text-black">
               {
                 session && session?.user ? (
                   <>
-                    <Link href="/startup/create">
-                      <span>Create</span>
-                    </Link>
-
                     <form action={signOutFunction}>
                       <button type="submit">
                         LogOut
                       </button>
                     </form>
 
-                    <Link href={`/user/$(session?.id)`}>
-                      {session?.user?.name}
+                    <Link href={`/user/$(session?.id)`} className="flex group flex-row gap-2 items-center justify-center bg-primary/50 rounded-lg p-1">
+                      <div className='flex flex-col flex-wrap'>
+                        <p className='font-bold text-xl text-black leading-1 group-hover:scale-105'>{session?.user?.name}</p>
+                      </div>
+
+                      <Image
+                        src={session?.user?.image as string}
+                        alt="Github image"
+                        width={35}
+                        height={35}
+                        className='rounded-full shadow-200'
+                      />
                     </Link>
                   </>
                 ) : (
