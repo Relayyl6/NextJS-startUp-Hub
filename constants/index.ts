@@ -39,3 +39,5 @@ export const posts = [
         title: "Recraft"
     },
 ]
+
+export const history = [];

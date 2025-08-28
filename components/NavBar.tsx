@@ -18,7 +18,7 @@ const Navbar = async () => {
     // console.log(session);
 
   return (
-    <header className='fixed top-0 w-full backdrop-blur-2xl rounded-bl-2xl rounded-br-2xl px-10 py-3 bg-white shadow-sm font-work-sans'>
+    <header className='w-full z-50 backdrop-blur-2xl rounded-bl-2xl rounded-br-2xl md:px-10 px-5 py-3 bg-white shadow-sm font-work-sans'>
         <nav className='flex justify-between items-center'>
             <Link href="/">
               <Image
@@ -47,9 +47,9 @@ const Navbar = async () => {
                       </button>
                     </form>
 
-                    <Link href={`/user/$(session?.id)`} className="flex group flex-row gap-2 items-center justify-center bg-primary/50 rounded-lg p-1">
+                    <Link href={`/user/$(session?.id)`} className="flex group flex-row gap-2 items-center group hover:scale-105 justify-center bg-primary/50 rounded-lg p-1 transition duration-300 ease-in-out">
                       <div className='flex flex-col flex-wrap'>
-                        <p className='font-bold text-xl text-black leading-1 group-hover:scale-105'>{session?.user?.name}</p>
+                        <p className='font-bold text-xl text-black leading-1 group-hover:scale-105 transition duration-300 ease-in-out hidden md:flex'>{session?.user?.name}</p>
                       </div>
 
                       <Image
@@ -57,7 +57,7 @@ const Navbar = async () => {
                         alt="Github image"
                         width={35}
                         height={35}
-                        className='rounded-full shadow-200'
+                        className='rounded-full shadow-200 group-hover:scale-105 transition duration-300 ease-in-out items-center justify-center flex'
                       />
                     </Link>
                   </>

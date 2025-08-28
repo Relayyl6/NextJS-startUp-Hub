@@ -27,7 +27,7 @@ const StartUpCard = ({ post }: { post: StartUpCardType } ) => {
     const { _createdAt, views, _id,  description, imageUrl, category, title } = post;
     const { author: { _id: authorId, name } } = post as Startup & { author: Author };
 
-    // or we could do 
+    // or we could do
     // const { _createdAt, views, _id,  description, author, imageUrl, category, title } = post;
     // then use author?._id and author?.name in the component
 

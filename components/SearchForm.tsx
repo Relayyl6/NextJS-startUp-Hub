@@ -24,7 +24,7 @@ const   SearchForm = ({query}: { query?: string }) => {
 
         {
             !query && (
-                <button type='submit' className="size-[50px] rounded-full bg-black text-white flex justify-center items-center !important">
+            <button alt="something" type='submit' className="size-[50px] rounded-full bg-black text-white flex justify-center items-center !important">
                     <Search className='size-5'/>
                 </button>
             )
