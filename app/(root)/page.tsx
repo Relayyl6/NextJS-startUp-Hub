@@ -1,4 +1,3 @@
-import SearchForm from "@/components/SearchForm";
 import type {StartUpCardType} from "@/components/StartUpCard";
 import StartUpCard from "@/components/StartUpCard";
 // import { posts } from "@/constants";
@@ -6,17 +5,23 @@ import StartUpCard from "@/components/StartUpCard";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { STARTUP_QUERIES } from "@/sanity/lib/queries";
 import { Metadata } from "next";
+// import { useState, useEffect } from "react";
+import SearchSection from "@/components/SearchSection"
 
 export const metaData: Metadata = {
   title: "StartUp",
   description: "New StartUp hub for entry and logging",
 };
 
+
 export default async function Home({ searchParams }: { searchParams: Promise<{ query?: string }> }) {
-  const query = (await searchParams).query;
+  const query = (await searchParams).query || null;
 
-  const params = { search: query || null }
+  const params = { search: query }
 
+  // const { AttemptAtSave } = useGlobalContext()
+  // const search = AttemptAtSave(query)
+  // console.log(searchHistory)
   // const posts = await client.fetch(STARTUP_QUERIES);
   const { data: posts } = await sanityFetch({query: STARTUP_QUERIES, params: params });
 
@@ -31,7 +36,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
           Submit Ideas, Vote on Pitches, and Get Noticed in Virtual competitions
         </p>
 
-        <SearchForm query={query}/>
+        <SearchSection query={query} />
       </section>
       <section className="px-6 py-10 max-w-7xl mx-auto">
         <p className="font-semibold text-[30px] text-black">
